@@ -1,0 +1,16 @@
+
+ .form-fields > * {
+        /* Styles for elements with 'child-class' that are direct children of an element with 'parent-class' */
+        margin-bottom: 16px;
+    }
+
+  
+  .page {
+    display: flex;  
+    flex-direction: column;
+    
+  }
+   
+  .content{  
+    flex: 1 0 auto;
+  }

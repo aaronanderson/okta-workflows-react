@@ -1,0 +1,44 @@
+{
+  "name": "@acme/okta-contractor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf ./dist || del /s /q dist",
+    "web-start": "tsc && node ./build.js -d",
+    "web-build": "tsc && node ./build.js",
+    "server-build": "esbuild src/server/server.ts --platform=node  --packages=external --bundle --minify --outfile=dist/server.cjs",
+    "server-start": "nodemon ./dist/server.cjs",
+    "build": "npm run server-build && npm run web-build",
+    "start": "node ./dist/server.cjs"
+  },
+  "dependencies": {
+    "@mui/icons-material": "^6.3.0",
+    "@okta/odyssey-react-mui": "^1.44.0",
+    "@okta/okta-auth-js": "^7.14.0",
+    "@okta/okta-react": "^6.10.0",
+    "@reduxjs/toolkit": "^2.8.2",
+    "dotenv": "^17.2.1",    
+    "express": "^5.1.0",
+    "express-openid-connect": "^2.19.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.8.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.1",
+    "esbuild": "0.25.9",
+    "esbuild-css-modules-plugin": "^3.1.5",
+    "esbuild-server": "^0.3.0",
+    "nodemon": "^3.1.10",
+    "picocolors": "^1.1.1",
+    "react-devtools": "^6.1.5",
+    "typescript": "^5.9.2"
+  }
+}

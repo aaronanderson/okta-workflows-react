@@ -1,0 +1,3 @@
+rowId,system.updated,id,contractId,userId,contractNumber,login,application,bundles
+aa9533b0-894c-11f0-8264-2ece0db138ac,1756962326891,2,1,1,AAAAAA,jsmith@acme.com,"{""id"": ""0oaofzotpvYrjOkaB1d8"",""name"": ""O365""}",[]
+42992d20-894c-11f0-be78-1ecfb28d22f9,1756962271826,1,1,1,AAAAAA,jsmith@acme.com,"{""id"":""0oaofzotpvYrjOkaB1d7"",""name"":""Sharepoint""}","[{""id"":""0oaofzotpvYrjOkaB1d7"",""name"":""Site A - RO""},{""id"":""0oaofzotpvYrjOkaB1d7"",""name"":""Site B - RW""}]"
