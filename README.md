@@ -15,6 +15,15 @@ In certain circumstances it may be necessary to supplement Okta with complex dat
 > Okta workflows are intended to be used as a no-code backend integration technology and not a frontend low latency high volume UI framework.  
 > Based on load, performance, and complexity in many cases it is preferable for the application server to directly interface with the Okta API and other Cloud framework APIs instead retrieving data from Okta workflows.
 
+### SPA vs webapp
+
+Per the Okta workflow API Endpoint card [documentation](https://help.okta.com/wf/en-us/content/topics/workflows/function-reference/http/http_accept.htm) the endpoint does not support CORS and thus does not support SPA applications. 
+
+Okta OIDC applications support [Okta API Scopes](https://help.okta.com/en-us/content/topics/apps/apps-configure-settings.htm) and [CORS](https://help.okta.com/en-us/content/topics/security/api-trusted-origins.htm).
+
+The source code contains commented code for using the @okta/okta-react and @okta/okta-auth-js libraries to secure a SPA application.
+
+
 ## Okta Configuration
 
 Log into the Okta admin console
@@ -96,14 +105,44 @@ yarn start
 
 [Guide](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-cli)
 
+1. delete the dist, node_modules, and yarn.lock directory and files
+   
+2. Authenticate
+   
+`az login`
+
 1. Initial Deployment
 
-`az webapp up --sku F1 --name acme-okta-contract-management`
+Optionally create a new resource group
+
+`az group create -n acme-rg -l centralus`
+
+Optionally list the Azure runtimes to identify the latest version
+
+`az webapp list-runtimes`
+
+Create an App Service 
+
+`az appservice plan create --resource-group acme-rg --name acme-node-plan --number-of-workers 1 --sku P0V3 --is-linux --location centralus`
+`
+Deploy the application
+
+`az webapp up --name acme-okta-contract-management --resource-group acme-rg --plan acme-node-plan --runtime "NODE:22-lts" --location centralus`
+
+`az webapp config appsettings set -n acme-okta-contract-management --resource-group acme-rg --settings  NODE_ENV="production" APP_BASE_URL="https://acme-okta-contract-management.azurewebsites.net" POST_LOGOUT_URL="https://acme-okta-contract-management.azurewebsites.net"`
+
+
+Optionally log into portal.azure.com and view the application in App Services service.
 
 1. Deploy Updates
 
-`az webapp up`
+re-run the above az webapp up
 
 1. Monitor Logs
 
 `az webapp log tail`
+
+   
+1. Update the Okta OIDC application and add a new Sign-in redirect URI value to `https://acme-okta-contract-management.azurewebsites.net/callback`
+
+1. Log into the site https://acme-okta-contract-management.azurewebsites.net
