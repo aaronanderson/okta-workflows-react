@@ -115,7 +115,7 @@ yarn start
 
 1. Initial Deployment
 
-Optionally create a new resource group
+Reuse or create a new resource group
 
 `az group create -n acme-okta-contract-management-rg -l centralus`
 
@@ -131,15 +131,14 @@ Create an App Service
 
 `az webapp create  --name acme-okta-contract-management --resource-group acme-okta-contract-management-rg --plan acme-okta-contract-management-node-plan --runtime "NODE:22-lts"` 
 
-`az webapp config appsettings set --name acme-okta-contract-management --resource-group acme-okta-contract-management-rg --settings NODE_ENV="production" OKTA_ISSUER="https://acme.oktapreview.com" OKTA_CLIENT_ID="0oaplujy0dF7dS0961d7" OKTA_CLIENT_SECRET="mYt_GidZQuMfqqFeEVxyAa-s8dNnK4wMZ0bAl7ZR-UW2zntuOecmniCQaOBY8z-m" OKTA_WORKFLOW_ENDPOINT="https://acme.workflows.oktapreview.com/api/flo/XXXXX/invoke" OKTA_WORKFLOW_TOKEN="XXXXXXX" APP_BASE_URL="https://acme-okta-contract-management.azurewebsites.net" POST_LOGOUT_URL="https://acme-okta-contract-management.azurewebsites.net"`
+`az webapp config appsettings set --name acme-okta-contract-management --resource-group acme-okta-contract-management-rg --settings NODE_ENV="production" OKTA_ISSUER="https://acme.oktapreview.com" OKTA_CLIENT_ID="XXXXXXXX" OKTA_CLIENT_SECRET="XXXXXXXX" OKTA_WORKFLOW_ENDPOINT="https://acme.workflows.oktapreview.com/api/flo/XXXXXXXXX/invoke" OKTA_WORKFLOW_TOKEN="XXXXXXXXX" APP_BASE_URL="https://acme-okta-contract-management.azurewebsites.net" POST_LOGOUT_URL="https://acme-okta-contract-management.azurewebsites.net"`
 
 `az webapp config set --name acme-okta-contract-management --resource-group acme-okta-contract-management-rg --startup-file "node server.cjs"`
 
 Deploy the application
 
-`az webapp up --name acme-okta-contract-management --resource-group acme-rg --plan acme-node-plan --runtime "NODE:22-lts" --location centralus`
+`az webapp deploy  --name acme-okta-contract-management --resource-group acme-okta-contract-management-rg  --src-path acme-okta-contract-management.zip` 
 
-`az webapp config appsettings set -n acme-okta-contract-management --resource-group acme-rg --settings  NODE_ENV="production" APP_BASE_URL="https://acme-okta-contract-management.azurewebsites.net" POST_LOGOUT_URL="https://acme-okta-contract-management.azurewebsites.net"`
 
 
 Optionally log into portal.azure.com and view the application in App Services service.
