@@ -9,10 +9,11 @@
     "clean": "rm -rf ./dist || del /s /q dist",
     "web-start": "tsc && node ./build.js -d",
     "web-build": "tsc && node ./build.js",
-    "server-build": "esbuild src/server/server.ts --platform=node  --packages=external --bundle --minify --outfile=dist/server.cjs",
+    "server-build": "esbuild src/server/server.ts --platform=node --bundle --minify --outfile=dist/server.cjs",
     "server-start": "nodemon ./dist/server.cjs",
     "build": "npm run server-build && npm run web-build",
-    "start": "node ./dist/server.cjs"
+    "start": "node ./dist/server.cjs",
+    "package": "tar -a -cf acme-okta-contractor.zip  -C dist *"
   },
   "dependencies": {
     "@mui/icons-material": "^6.3.0",

@@ -105,7 +105,9 @@ yarn start
 
 [Guide](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-cli)
 
-1. delete the dist, node_modules, and yarn.lock directory and files
+1. Build and package the application
+
+ `yarn build && yarn package`  
    
 2. Authenticate
    
@@ -115,7 +117,7 @@ yarn start
 
 Optionally create a new resource group
 
-`az group create -n acme-rg -l centralus`
+`az group create -n acme-okta-contract-management-rg -l centralus`
 
 Optionally list the Azure runtimes to identify the latest version
 
@@ -123,8 +125,16 @@ Optionally list the Azure runtimes to identify the latest version
 
 Create an App Service 
 
-`az appservice plan create --resource-group acme-rg --name acme-node-plan --number-of-workers 1 --sku P0V3 --is-linux --location centralus`
-`
+[Azure App Service](https://azure.microsoft.com/en-us/pricing/details/app-service/linux/)
+
+`az appservice plan create --resource-group acme-okta-contract-management-rg --name acme-okta-contract-management-node-plan --number-of-workers 1 --sku B1 --is-linux --location centralus`
+
+`az webapp create  --name acme-okta-contract-management --resource-group acme-okta-contract-management-rg --plan acme-okta-contract-management-node-plan --runtime "NODE:22-lts"` 
+
+`az webapp config appsettings set --name acme-okta-contract-management --resource-group acme-okta-contract-management-rg --settings NODE_ENV="production" OKTA_ISSUER="https://acme.oktapreview.com" OKTA_CLIENT_ID="0oaplujy0dF7dS0961d7" OKTA_CLIENT_SECRET="mYt_GidZQuMfqqFeEVxyAa-s8dNnK4wMZ0bAl7ZR-UW2zntuOecmniCQaOBY8z-m" OKTA_WORKFLOW_ENDPOINT="https://acme.workflows.oktapreview.com/api/flo/XXXXX/invoke" OKTA_WORKFLOW_TOKEN="XXXXXXX" APP_BASE_URL="https://acme-okta-contract-management.azurewebsites.net" POST_LOGOUT_URL="https://acme-okta-contract-management.azurewebsites.net"`
+
+`az webapp config set --name acme-okta-contract-management --resource-group acme-okta-contract-management-rg --startup-file "node server.cjs"`
+
 Deploy the application
 
 `az webapp up --name acme-okta-contract-management --resource-group acme-rg --plan acme-node-plan --runtime "NODE:22-lts" --location centralus`
